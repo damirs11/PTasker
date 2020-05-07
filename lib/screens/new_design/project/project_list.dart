@@ -103,12 +103,16 @@ class _ProjectListState extends State<ProjectList>
                   builder: (context, snapshot) {
                     var pColor = (Project p) => Color.fromRGBO(
                         p.color['r'], p.color['g'], p.color['b'], 1);
+
+                    var tSort = (List<Project> p) => p.sort(
+                        (a, b) => a.dateOfCreation.compareTo(b.dateOfCreation));
+
                     if (!snapshot.hasData) {
                       return Center(child: Loading());
                     } else {
                       final List<Project> projects = snapshot.data;
-                      projects.sort((a, b) =>
-                          a.dateOfCreation.compareTo(b.dateOfCreation));
+                      tSort(projects);
+
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.only(left: 40.0, right: 40.0),
@@ -120,10 +124,7 @@ class _ProjectListState extends State<ProjectList>
                               Navigator.of(context).push(PageRouteBuilder(
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) =>
-                                        TaskList(
-                                  project: projects[index],
-                                  color: "blue",
-                                ),
+                                        TaskList(project: projects[index]),
                               ));
                             },
                             child: Card(

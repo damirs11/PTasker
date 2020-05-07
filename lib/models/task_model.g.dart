@@ -14,6 +14,9 @@ Task _$TaskFromJson(Map<String, dynamic> json) {
     authorUid: json['authorUid'] as String,
     priority: _$enumDecodeNullable(_$TaskPriorityEnumMap, json['priority']),
     status: _$enumDecodeNullable(_$TaskStatusEnumMap, json['status']),
+    dateOfCompletion: json['dateOfCompletion'] == null
+        ? null
+        : DateTime.parse(json['dateOfCompletion'] as String),
   );
 }
 
@@ -24,6 +27,7 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'authorUid': instance.authorUid,
       'priority': _$TaskPriorityEnumMap[instance.priority],
       'status': _$TaskStatusEnumMap[instance.status],
+      'dateOfCompletion': instance.dateOfCompletion?.toIso8601String(),
     };
 
 T _$enumDecode<T>(

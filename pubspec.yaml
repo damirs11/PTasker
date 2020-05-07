@@ -28,6 +28,7 @@ dependencies:
   cloud_firestore: ^0.13.5
 
   provider: ^4.0.5+1
+  intl: ^0.16.1
 
   uuid: ^2.0.4
   json_annotation: ^3.0.1
@@ -38,7 +39,7 @@ dependencies:
   wave: ^0.0.8
   flutter_slidable: ^0.5.4
   material_design_icons_flutter: ^4.0.5145
-  font_awesome_flutter: ^8.0.1
+  font_awesome_flutter: ^8.8.1
   flutter_svg: ^0.17.4
   flutter_spinkit: "^4.1.2+1"
   percent_indicator: "^2.1.1"

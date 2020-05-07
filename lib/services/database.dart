@@ -105,6 +105,8 @@ class DatabaseService {
   //Fake data
   void createProjectsWithData() {
     DateTime now = new DateTime.now().toUtc();
+    var newDate30 = now.add(new Duration(days: 30));
+    var newDate60 = now.add(new Duration(days: 60));
 
     Task p1task1 = new Task(
       authorUid: "kdAGJ042HmVHprI1UmX68CiBe7J3",
@@ -112,7 +114,7 @@ class DatabaseService {
       mainText: "Описание задачи номер 1 проекта 1",
       priority: TaskPriority.low,
       status: TaskStatus.open,
-      dateOfCompletion: now.add(new Duration(days: 30)),
+      dateOfCompletion: newDate30,
     );
     Task p1task2 = new Task(
       authorUid: "hqfFsw7OgfUnqqzhSHal2p0r9Hn2",
@@ -120,7 +122,7 @@ class DatabaseService {
       mainText: "Описание задачи номер 2 проекта 1",
       priority: TaskPriority.medium,
       status: TaskStatus.open,
-      dateOfCompletion: now.add(new Duration(days: 60)),
+      dateOfCompletion: newDate60,
     );
 
     Task p2task1 = new Task(
@@ -129,7 +131,7 @@ class DatabaseService {
       mainText: "Описание задачи номер 1 проекта 2",
       priority: TaskPriority.high,
       status: TaskStatus.open,
-      dateOfCompletion: now.add(new Duration(days: 60)),
+      dateOfCompletion: newDate60,
     );
     Task p2task2 = new Task(
       authorUid: "hSisTQ1jdDbFrOoUh3YM29BqSYl1",
@@ -137,7 +139,7 @@ class DatabaseService {
       mainText: "Описание задачи номер 2 проекта 2",
       priority: TaskPriority.low,
       status: TaskStatus.open,
-      dateOfCompletion: now.add(new Duration(days: 30)),
+      dateOfCompletion: newDate30,
     );
 
     Task p3task1 = new Task(
@@ -146,7 +148,7 @@ class DatabaseService {
       mainText: "Описание задачи номер 1 проекта 3",
       priority: TaskPriority.medium,
       status: TaskStatus.open,
-      dateOfCompletion: now.add(new Duration(days: 30)),
+      dateOfCompletion: newDate30,
     );
     Task p3task2 = new Task(
       authorUid: "kdAGJ042HmVHprI1UmX68CiBe7J3",
@@ -154,7 +156,7 @@ class DatabaseService {
       mainText: "Описание задачи номер 2 проекта 3",
       priority: TaskPriority.high,
       status: TaskStatus.open,
-      dateOfCompletion: now.add(new Duration(days: 30)),
+      dateOfCompletion: newDate30,
     );
 
     Project project_1 = new Project(
@@ -166,6 +168,7 @@ class DatabaseService {
         'hqfFsw7OgfUnqqzhSHal2p0r9Hn2': true,
         'kdAGJ042HmVHprI1UmX68CiBe7J3': false
       },
+      dateOfCompletion: p1task2.dateOfCompletion,
     );
     Project project_2 = new Project(
       authorUid: "kdAGJ042HmVHprI1UmX68CiBe7J3",
@@ -176,6 +179,7 @@ class DatabaseService {
         'hqfFsw7OgfUnqqzhSHal2p0r9Hn2': false,
         'kdAGJ042HmVHprI1UmX68CiBe7J3': true
       },
+      dateOfCompletion: p2task1.dateOfCompletion,
     );
     Project project_3 = new Project(
       authorUid: "kdAGJ042HmVHprI1UmX68CiBe7J3",
@@ -186,6 +190,7 @@ class DatabaseService {
         'hqfFsw7OgfUnqqzhSHal2p0r9Hn2': false,
         'kdAGJ042HmVHprI1UmX68CiBe7J3': false
       },
+      dateOfCompletion: p1task1.dateOfCompletion,
     );
 
     this.updateProject(project_1);

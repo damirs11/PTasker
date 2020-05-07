@@ -13,8 +13,8 @@ class Task {
   final String authorUid;
   final TaskPriority priority;
   final TaskStatus status;
-  final DateTime creationDate;
   final DateTime dateOfCreation;
+  final DateTime dateOfCompletion;
 
   Task(
       {String uid,
@@ -30,8 +30,8 @@ class Task {
         this.authorUid = authorUid,
         this.priority = priority ?? TaskPriority.medium,
         this.status = status ?? TaskStatus.open,
-        this.creationDate = new DateTime.now().toUtc(),
-        this.dateOfCreation = dateOfCompletion;
+        this.dateOfCreation = new DateTime.now().toUtc(),
+        this.dateOfCompletion = dateOfCompletion.toUtc();
 
   // Task copy(
   //     {String title,

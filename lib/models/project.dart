@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:PTasker/models/task_model.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,12 +26,12 @@ class Project {
       {String uid,
       String name,
       String description,
-      String authorUid,
+      @required String authorUid,
       Map<String, bool> relatedUserUids,
       List<Task> relatedTasks,
       Map<String, int> color,
       DateTime dateOfCreation,
-      DateTime dateOfCompletion})
+      @required DateTime dateOfCompletion})
       : this.uid = uid ?? Uuid().v4(),
         this.name = name ?? "Название проекта",
         this.description = description ?? 'Описание',
@@ -43,8 +44,8 @@ class Project {
               'g': rng.nextInt(255),
               'b': rng.nextInt(255)
             },
-        this.dateOfCreation = dateOfCreation ?? new DateTime.now().toUtc(),
-        this.dateOfCompletion = dateOfCompletion;
+        this.dateOfCreation = new DateTime.now().toUtc(),
+        this.dateOfCompletion = dateOfCompletion.toUtc();
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$ProjectFromJson()` constructor.
