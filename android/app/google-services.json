@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "258476957860",
+    "firebase_url": "https://diplom-flutter.firebaseio.com",
+    "project_id": "diplom-flutter",
+    "storage_bucket": "diplom-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258476957860:android:8d2c62c5ac310c7e278631",
+        "android_client_info": {
+          "package_name": "com.example.PTasker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258476957860-fupoq5ugvcj0hnk8s3dg93r8s71bcb01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC403clmHzda74SoSG8IO-_SY1y98q4IaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258476957860-fupoq5ugvcj0hnk8s3dg93r8s71bcb01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258476957860:android:c4529242b4ec4684278631",
+        "android_client_info": {
+          "package_name": "com.example.diplom_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258476957860-fupoq5ugvcj0hnk8s3dg93r8s71bcb01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC403clmHzda74SoSG8IO-_SY1y98q4IaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258476957860-fupoq5ugvcj0hnk8s3dg93r8s71bcb01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
