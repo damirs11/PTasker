@@ -15,6 +15,7 @@ class Task {
   final TaskStatus status;
   final DateTime dateOfCreation;
   final DateTime dateOfCompletion;
+  final List<String> relatedUserUids;
 
   Task(
       {String uid,
@@ -23,29 +24,37 @@ class Task {
       @required String authorUid,
       TaskPriority priority,
       TaskStatus status,
-      @required DateTime dateOfCompletion})
+      DateTime dateOfCreation,
+      DateTime dateOfCompletion,
+      List<String> relatedUserUids})
       : this.uid = uid ?? Uuid().v4(),
         this.title = title ?? "Оглавние задачи",
         this.mainText = mainText ?? "Описание задачи",
         this.authorUid = authorUid,
         this.priority = priority ?? TaskPriority.medium,
         this.status = status ?? TaskStatus.open,
-        this.dateOfCreation = new DateTime.now().toUtc(),
-        this.dateOfCompletion = dateOfCompletion.toUtc();
+        this.dateOfCreation = dateOfCreation ?? DateTime.now().toUtc(),
+        this.dateOfCompletion = dateOfCompletion ?? DateTime.now().toUtc(),
+        this.relatedUserUids = relatedUserUids ?? List<String>();
 
-  // Task copy(
-  //     {String title,
-  //     String mainText,
-  //     TaskPriority priority,
-  //     TaskStatus status}) {
-  //   return Task(
-  //       uid: this.uid,
-  //       title: title ?? this.title,
-  //       mainText: mainText ?? this.mainText,
-  //       authorUid: this.authorUid,
-  //       priority: priority ?? this.priority,
-  //       status: status ?? this.status);
-  // }
+  Task copy(
+      {String title,
+      String mainText,
+      TaskPriority priority,
+      TaskStatus status,
+      DateTime dateOfCompletion,
+      List<String> relatedUserUids}) {
+    return Task(
+        uid: this.uid,
+        title: title ?? this.title,
+        mainText: mainText ?? this.mainText,
+        authorUid: this.authorUid,
+        priority: priority ?? this.priority,
+        status: status ?? this.status,
+        dateOfCreation: this.dateOfCreation,
+        dateOfCompletion: dateOfCompletion ?? this.dateOfCompletion,
+        relatedUserUids: relatedUserUids ?? this.relatedUserUids);
+  }
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$TaskFromJson()` constructor.

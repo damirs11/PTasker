@@ -9,6 +9,10 @@ class AuthService {
     return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
   }
 
+  Future<User> get getUser {
+    return _auth.currentUser().then(_userFromFirebaseUser);
+  }
+
   User _userFromFirebaseUser(FirebaseUser user) {
     if (user != null) {
       return User(
@@ -30,8 +34,14 @@ class AuthService {
 
       user.updateProfile(userUpdateInfo);
 
-      await DatabaseService(uid: user.uid)
-          .updateUserData(UserData(isAdmin: false));
+      UserData userData = new UserData(
+        uid: user.uid,
+        displayName: userUpdateInfo.displayName,
+        email: user.email,
+        isAdmin: false,
+      );
+
+      await DatabaseService(uid: user.uid).updateUserData(userData);
 
       return _userFromFirebaseUser(user);
     } catch (e) {
@@ -47,6 +57,7 @@ class AuthService {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

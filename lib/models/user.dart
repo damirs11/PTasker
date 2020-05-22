@@ -12,9 +12,17 @@ class User {
 
 @JsonSerializable()
 class UserData {
+  final String uid;
+  final String displayName;
+  final String photoUrl;
+  final String email;
   final bool isAdmin;
 
-  UserData({bool isAdmin}) : this.isAdmin = isAdmin ?? false;
+  UserData(
+      {this.uid, String displayName, String photoUrl, this.email, bool isAdmin})
+      : this.displayName = displayName ?? uid,
+        this.photoUrl = photoUrl ?? null,
+        this.isAdmin = isAdmin ?? false;
 
   //     Task copy(
   //   {String title,

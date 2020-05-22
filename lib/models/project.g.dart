@@ -15,10 +15,6 @@ Project _$ProjectFromJson(Map<String, dynamic> json) {
     relatedUserUids: (json['relatedUserUids'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as bool),
     ),
-    relatedTasks: (json['relatedTasks'] as List)
-        ?.map(
-            (e) => e == null ? null : Task.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     color: (json['color'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as int),
     ),
@@ -37,7 +33,6 @@ Map<String, dynamic> _$ProjectToJson(Project instance) => <String, dynamic>{
       'description': instance.description,
       'authorUid': instance.authorUid,
       'relatedUserUids': instance.relatedUserUids,
-      'relatedTasks': instance.relatedTasks.map((e) => e.toJson()).toList(),
       'color': instance.color,
       'dateOfCreation': instance.dateOfCreation?.toIso8601String(),
       'dateOfCompletion': instance.dateOfCompletion?.toIso8601String(),
