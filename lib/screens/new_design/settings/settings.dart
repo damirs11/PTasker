@@ -1,4 +1,5 @@
 import 'package:PTasker/models/user.dart';
+import 'package:PTasker/screens/message_handler.dart';
 import 'package:PTasker/services/auth.dart';
 import 'package:PTasker/services/database.dart';
 import 'package:PTasker/shared/loading.dart';
@@ -138,34 +139,7 @@ class _SettingsState extends State<Settings> {
                       color: Colors.black,
                     ),
                   ),
-                  SwitchListTile(
-                    activeColor: Colors.blue,
-                    contentPadding: const EdgeInsets.all(0),
-                    value: true,
-                    title: Text("Received notification"),
-                    onChanged: (val) {},
-                  ),
-                  SwitchListTile(
-                    activeColor: Colors.blue,
-                    contentPadding: const EdgeInsets.all(0),
-                    value: false,
-                    title: Text("Received newsletter"),
-                    onChanged: null,
-                  ),
-                  SwitchListTile(
-                    activeColor: Colors.blue,
-                    contentPadding: const EdgeInsets.all(0),
-                    value: true,
-                    title: Text("Received Offer Notification"),
-                    onChanged: (val) {},
-                  ),
-                  SwitchListTile(
-                    activeColor: Colors.blue,
-                    contentPadding: const EdgeInsets.all(0),
-                    value: true,
-                    title: Text("Received App Updates"),
-                    onChanged: null,
-                  ),
+                  MessageHandler(),
                   const SizedBox(height: 60.0),
                 ],
               ),

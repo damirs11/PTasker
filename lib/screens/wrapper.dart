@@ -12,11 +12,6 @@ class Wrapper extends StatelessWidget {
           if (snapshot.data == null) {
             return Authenticate();
           } else {
-            // return Home();
-            // return StreamProvider<List<Project>>.value(
-            //   value: DatabaseService().projects,
-            //   child: ProjectList(),
-            // );
             return HomePage();
           }
         });

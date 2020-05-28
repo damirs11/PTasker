@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -9,6 +11,9 @@ class FileMeta {
   final String name;
   final String storagePath;
   final String url;
+
+  @JsonKey(ignore: true)
+  File file;
 
   FileMeta({String uid, this.url, this.name, this.storagePath})
       : this.uid = uid ?? Uuid().v4();

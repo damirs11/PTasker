@@ -101,6 +101,18 @@ class DatabaseService {
         .map(_fileMetaListFromSnapshot);
   }
 
+  Stream<List<FileMeta>> getCommentFilesMeta(Comment comment) {
+    return fileMetaCollection
+        .document(uid)
+        .collection("tasks")
+        .document(subuid)
+        .collection("comments")
+        .document(comment.uid)
+        .collection("files")
+        .snapshots()
+        .map(_fileMetaListFromSnapshot);
+  }
+
   Future<List<Comment>> getComments() {
     return projectsCollection
         .document(uid)
@@ -141,6 +153,28 @@ class DatabaseService {
         .setData(fileMeta.toJson());
   }
 
+  Future updateCommentFileMeta(Comment comment, FileMeta fileMeta) async {
+    return await fileMetaCollection
+        .document(uid)
+        .collection("tasks")
+        .document(subuid)
+        .collection("comments")
+        .document(comment.uid)
+        .collection("files")
+        .document(fileMeta.name)
+        .setData(fileMeta.toJson());
+  }
+
+  Future updateComment(Comment comment) async {
+    return await projectsCollection
+        .document(uid)
+        .collection("tasks")
+        .document(subuid)
+        .collection("comments")
+        .document(comment.uid)
+        .setData(comment.toJson());
+  }
+
   // Future updateCommentFileMeta(FileMeta fileMeta) async {
   //   return await fileMetaCollection
   //       .document(uid)
@@ -168,12 +202,34 @@ class DatabaseService {
         .then((value) => print('Task ${task.uid} from ${project.uid} deleted'));
   }
 
+  Future<void> deleteComment(Comment comment) async {
+    projectsCollection
+        .document(uid)
+        .collection("tasks")
+        .document(subuid)
+        .collection("comments")
+        .document(comment.uid)
+        .delete();
+  }
+
   Future<void> deleteRelatedFileMeta(FileMeta fileMeta) async {
     await fileMetaCollection
         .document(uid)
         .collection("tasks")
         .document(subuid)
         .collection("relatedFiles")
+        .document(fileMeta.name)
+        .delete();
+  }
+
+  Future<void> deleteCommentFileMeta(Comment comment, FileMeta fileMeta) async {
+    await fileMetaCollection
+        .document(uid)
+        .collection("tasks")
+        .document(subuid)
+        .collection("comments")
+        .document(comment.uid)
+        .collection("files")
         .document(fileMeta.name)
         .delete();
   }
@@ -217,13 +273,11 @@ class DatabaseService {
   }
 
   List<Comment> _commetsFromSnapshot(QuerySnapshot snapshot) {
-    var temp = snapshot.documents.map((e) {
-      return Comment.fromJson(e.data);
+    return snapshot.documents.map((e) {
+      var temp = Comment.fromJson(e.data);
+      temp.user = usersCollection.document(temp.userUid);
+      return temp;
     }).toList();
-    temp.map((e) async {
-      e.user = await getUserData(e.userUid);
-    }).toList();
-    return temp;
   }
 
   //Fake data

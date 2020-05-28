@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:PTasker/models/comment.dart';
 import 'package:PTasker/models/file_meta.dart';
 import 'package:PTasker/models/project.dart';
 import 'package:PTasker/models/task_model.dart';
@@ -26,9 +27,14 @@ class CouldStorageService {
   //   storageReference.
   // }
 
-  Stream<List<FileMeta>> getFilesMeta() {
+  Stream<List<FileMeta>> getRelatedFilesMeta() {
     return DatabaseService(uid: projectUid, subuid: taskUid)
         .getRelatedFilesMeta();
+  }
+
+  Stream<List<FileMeta>> getCommentFilesMeta(Comment comment) {
+    return DatabaseService(uid: projectUid, subuid: taskUid)
+        .getCommentFilesMeta(comment);
   }
 
   Future<void> addRelatedFile(File file) async {
@@ -51,6 +57,30 @@ class CouldStorageService {
 
     DatabaseService(uid: projectUid, subuid: taskUid)
         .updateRelatedFileMeta(fileMeta);
+
+    print("URL is $url");
+  }
+
+  Future<void> addCommentFile(Comment comment, File file) async {
+    String filename = p.basename(file.path);
+
+    StorageReference storageReference;
+    storageReference = FirebaseStorage.instance
+        .ref()
+        .child("$projectUid/$taskUid/comments/${comment.uid}/$filename");
+
+    final StorageUploadTask uploadTask = storageReference.putFile(file);
+    final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
+    final String url = (await downloadUrl.ref.getDownloadURL());
+
+    FileMeta fileMeta = new FileMeta(
+      name: filename,
+      storagePath: "$projectUid/$taskUid/comments/${comment.uid}/$filename",
+      url: url,
+    );
+
+    DatabaseService(uid: projectUid, subuid: taskUid)
+        .updateCommentFileMeta(comment, fileMeta);
 
     print("URL is $url");
   }
@@ -81,6 +111,16 @@ class CouldStorageService {
     storageReference.delete().then((_) =>
         DatabaseService(uid: projectUid, subuid: taskUid)
             .deleteRelatedFileMeta(fileMeta));
+  }
+
+  Future<void> deleteCommentFile(Comment comment, FileMeta fileMeta) async {
+    StorageReference storageReference;
+    storageReference =
+        FirebaseStorage.instance.ref().child("${fileMeta.storagePath}");
+
+    storageReference.delete().then((_) =>
+        DatabaseService(uid: projectUid, subuid: taskUid)
+            .deleteCommentFileMeta(comment, fileMeta));
   }
 
   Future<String> _findLocalPath(context) async {

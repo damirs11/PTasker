@@ -1,5 +1,7 @@
 import 'package:PTasker/models/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 part 'comment.g.dart';
 
@@ -9,11 +11,15 @@ class Comment {
   final String userUid;
   final String message;
   final DateTime time;
+  final bool hasFiles;
 
   @JsonKey(ignore: true)
-  UserData user;
+  DocumentReference user;
 
-  Comment({this.uid, this.userUid, this.message, this.time});
+  Comment(
+      {this.userUid, this.message, this.hasFiles, String uid, DateTime time})
+      : this.uid = uid ?? Uuid().v4(),
+        this.time = time ?? DateTime.now().toUtc();
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$CommentFromJson()` constructor.

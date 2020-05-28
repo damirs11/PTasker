@@ -91,8 +91,15 @@ Stack getFireIcons(Task t) {
   );
 }
 
-Future<bool> isExist(String fileName) async {
-  final dir = await getExternalStorageDirectory();
-  print(dir);
-  return File("${dir.path}/fileName").exists();
+Future<bool> isExist(context, String fileName) async {
+  final dir = await _findLocalPath(context);
+  print("$dir${Platform.pathSeparator}$fileName");
+  return File("$dir${Platform.pathSeparator}$fileName").existsSync();
+}
+
+Future<String> _findLocalPath(context) async {
+  final directory = Theme.of(context).platform == TargetPlatform.android
+      ? await getExternalStorageDirectory()
+      : await getApplicationDocumentsDirectory();
+  return directory.path;
 }

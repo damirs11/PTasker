@@ -8,6 +8,7 @@ import 'package:PTasker/shared/loading.dart';
 import 'package:PTasker/shared/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class ProjectList extends StatefulWidget {
   @override
@@ -172,6 +173,21 @@ class _ProjectListState extends State<ProjectList>
                                           ),
                                         ),
                                         Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 0.0, bottom: 0.0),
+                                          child: Container(
+                                            child: Text(
+                                              "Сделать до " +
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .format(projects[index]
+                                                          .dateOfCompletion),
+                                              style: TextStyle(
+                                                  fontSize: 12.0,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
                                           padding: EdgeInsets.only(top: 5.0),
                                           child: Row(
                                             children: <Widget>[
@@ -188,7 +204,8 @@ class _ProjectListState extends State<ProjectList>
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                                          padding: EdgeInsets.fromLTRB(
+                                              10.0, 10.0, 10.0, 10.0),
                                           child: Text(
                                             projects[index].description,
                                             textAlign: TextAlign.justify,
